@@ -3,6 +3,7 @@ const HttpStatus = require('http-status-codes');
 const User = require('../models/user-model');
 const Message = require('../models/message-model');
 const Conversation = require('../models/conversation-model');
+const helper = require('../helpers/helper');
 
 module.exports = {
   async getAllMessages(req, res) {
@@ -58,6 +59,10 @@ module.exports = {
       },
       async (err, result) => {
         if (result.length > 0) {
+          const message = await Message.findOne({
+            conversationId: result[0]._id
+          });
+          helper.updateChatList(req, message);
           await Message.update(
             {
               conversationId: result[0]._id

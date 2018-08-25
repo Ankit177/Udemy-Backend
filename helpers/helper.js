@@ -7,7 +7,7 @@ module.exports = {
   LowerCase: str => {
     return str.toLowerCase();
   },
-  updateChatList: async (req, val) => {
+  updateChatList: async (req, message) => {
     await User.update(
       {
         _id: req.user._id
@@ -38,7 +38,7 @@ module.exports = {
             $each: [
               {
                 receiverId: req.params.receiver_id,
-                msgId: newMessage._id
+                msgId: message._id
               }
             ],
             $position: 0
@@ -56,7 +56,7 @@ module.exports = {
             $each: [
               {
                 receiverId: req.user._id,
-                msgId: newMessage._id
+                msgId: message._id
               }
             ],
             $position: 0
