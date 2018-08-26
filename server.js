@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const _ = require('lodash');
 
 const app = express();
 
@@ -30,8 +31,8 @@ mongoose.connect(
   dbconfig.url,
   { useNewUrlParser: true }
 );
-
-require('./socket/stream')(io);
+const User = require('./helpers/UserClass');
+require('./socket/stream')(io, User, _);
 require('./socket/private-chat')(io);
 const auth = require('./routes/auth-route');
 const post = require('./routes/post-routes');

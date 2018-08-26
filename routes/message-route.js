@@ -17,6 +17,12 @@ router.get(
 );
 
 router.get(
+  '/mark-all-messages',
+  AuthHelper.verifyToken,
+  MessageController.MarkAllMessages
+);
+
+router.get(
   '/receiver-messages/:sender/:receiver',
   AuthHelper.verifyToken,
   MessageController.MarkReceiverMessages

@@ -179,6 +179,53 @@ module.exports = {
         }
       }
     ]);
+    if (msg.length > 0) {
+      try {
+        msg.forEach(async value => {
+          await Message.update(
+            {
+              'message._id': value.message._id
+            },
+            {
+              $set: { 'message.$.isRead': true }
+            }
+          );
+        });
+        res.status(HttpStatus.OK).json({ message: 'message marked as read' });
+      } catch (err) {
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Error Occured' });
+      }
+    }
+  },
+  MarkAllMessages(req, res) {
+    const msg = Message.aggregate([
+      { $match: { 'message.receivername': req.user.username } },
+      { $unwind: '$message' },
+      { $match: { 'message.receivername': req.user.username } }
+    ]);
     console.log(msg);
+    if (msg.length > 0) {
+      try {
+        msg.forEach(async value => {
+          await Message.update(
+            {
+              'message._id': value.message._id
+            },
+            {
+              $set: { 'message.$.isRead': true }
+            }
+          );
+        });
+        res
+          .status(HttpStatus.OK)
+          .json({ message: 'All message marked as read' });
+      } catch (err) {
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Error Occured' });
+      }
+    }
   }
 };
