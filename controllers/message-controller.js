@@ -163,5 +163,22 @@ module.exports = {
         }
       }
     );
+  },
+  async MarkReceiverMessages(req, res) {
+    const { sender, receiver } = req.params;
+    const msg = Message.aggregate([
+      { $unwind: '$message' },
+      {
+        $match: {
+          $and: [
+            {
+              'message.sendername': receiver,
+              'message.receivername': sender
+            }
+          ]
+        }
+      }
+    ]);
+    console.log(msg);
   }
 };

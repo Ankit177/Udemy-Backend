@@ -16,4 +16,9 @@ router.get(
   MessageController.getAllMessages
 );
 
+router.get(
+  '/receiver-messages/:sender/:receiver',
+  AuthHelper.verifyToken,
+  MessageController.MarkReceiverMessages
+);
 module.exports = router;
