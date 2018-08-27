@@ -31,7 +31,7 @@ mongoose.connect(
   dbconfig.url,
   { useNewUrlParser: true }
 );
-const User = require('./helpers/UserClass');
+const { User } = require('./helpers/UserClass');
 require('./socket/stream')(io, User, _);
 require('./socket/private-chat')(io);
 const auth = require('./routes/auth-route');

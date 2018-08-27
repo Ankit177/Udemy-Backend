@@ -166,7 +166,7 @@ module.exports = {
   },
   async MarkReceiverMessages(req, res) {
     const { sender, receiver } = req.params;
-    const msg = Message.aggregate([
+    const msg = await Message.aggregate([
       { $unwind: '$message' },
       {
         $match: {
@@ -199,8 +199,8 @@ module.exports = {
       }
     }
   },
-  MarkAllMessages(req, res) {
-    const msg = Message.aggregate([
+  async MarkAllMessages(req, res) {
+    const msg = await Message.aggregate([
       { $match: { 'message.receivername': req.user.username } },
       { $unwind: '$message' },
       { $match: { 'message.receivername': req.user.username } }
