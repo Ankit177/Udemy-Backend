@@ -18,7 +18,7 @@ class User {
     return socketId;
   }
   removeUser(socket_id) {
-    const user = this.getUser(socket_id);
+    const user = this.getUserId(socket_id);
     if (user) {
       this.globalArray = this.globalArray.filter(
         userId => userId.socket_id !== socket_id
@@ -32,3 +32,5 @@ class User {
     return names;
   }
 }
+
+module.exports = { User };
