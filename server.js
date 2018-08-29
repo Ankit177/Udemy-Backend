@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const _ = require('lodash');
-
+const port = 3000 || process.env.port;
 const app = express();
 
 const dbconfig = require('./config/secret');
@@ -46,6 +46,6 @@ app.use('/api/chatapp', users);
 app.use('/api/chatapp', friends);
 app.use('/api/chatapp', messages);
 
-server.listen(3000, () => {
-  console.log('server is running on port 3000');
+server.listen(port, () => {
+  console.log(`server is running on port ${port}`);
 });
